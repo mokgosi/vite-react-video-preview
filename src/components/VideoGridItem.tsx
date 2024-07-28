@@ -1,26 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import { formatDuration } from "../utils/formatDuration"
 import { formatTimeAgo } from "../utils/formatTimeAgo"
-
-type VideoGridItemProps = {
-    id:string
-    title:string
-    channel:{
-        id: string
-        name: string
-        profileUrl:string
-    },
-    views: number
-    postedAt: Date
-    duration: number
-    thumbnailUrl: string
-    videoUrl: string
-}
+import moment from "moment"
 
 const VIEWS_FORMAT = Intl.NumberFormat(undefined, {notation: "compact"})
 
-export function VideoGridItem(
-    {id, title, channel, views, postedAt, duration, thumbnailUrl, videoUrl}: VideoGridItemProps) {
+    export function VideoGridItem(item) {
+
+        const { id, snippet={}, contentDetails={}, statistics = {} } = item.data;
+        const { title, channelId, channelTitle, publishedAt, thumbnails={} } = snippet;
+        const { medium = {} } = thumbnails;
+        const { duration } = contentDetails;
+        const { viewCount } = statistics;
 
         const [isPlaying, setIsPlaying] = useState(false)
         const videoRef = useRef<HTMLVideoElement>()
@@ -33,7 +24,6 @@ export function VideoGridItem(
             } else [
                 videoRef.current.pause()
             ]
-
         }, [isPlaying])
 
     return (
@@ -41,40 +31,34 @@ export function VideoGridItem(
             onMouseEnter = {() => setIsPlaying(true)} 
             onMouseLeave = {() => setIsPlaying(false)}>
 
-            <a href={`/watch?v=${id}`} className="relative aspect-video">
-                <img src={thumbnailUrl}  
-                    className={`bloxk w-full h-full object-cover rounded-xl 
-                        transition-[border-radius] duration-200 
-                        ${isPlaying ? "rounded-none" : "rounded-xl" }`} />
+            <a href={`https://youtube.com/watch?v=${id}`} className="relative aspect-video">
+                <img src={medium.url}  
+                    className={`bloxk w-full h-full object-cover rounded-xl transition-[border-radius] duration-200 ${isPlaying ? "rounded-none" : "rounded-xl" }`} />
                 
-                <div className="absolute bottom-1 right-1 bg-secondary-dark 
-                        text-secondary text-sm px-.5 rounded">
-                    {formatDuration(duration)}
+                <div className="absolute bottom-1 right-1 bg-secondary-dark text-secondary text-sm px-.5 rounded">
+                    {formatDuration(moment.duration(duration).asSeconds())}
                 </div>
 
-                <video 
-                    className={`block h-full object-cover absolute inset-0 
-                            transition-opacity duration-200 delay-200
-                            ${isPlaying ? "opacity-100" : "opacity-0"  }`}
+                <video src={`https://youtube.com/watch?v=${id}`}
+                    className={`block h-full object-cover absolute inset-0  transition-opacity duration-200 delay-200 ${isPlaying ? "opacity-100" : "opacity-0"  }`}
                     ref={videoRef} 
                     muted 
-                    playsInline 
-                    src={videoUrl} />
+                    playsInline />
             </a>
 
             <div className="flex gap-2">
-                <a href={`/@${channel.id}`}>
-                    <img src={channel.profileUrl} className="w-12 h-12 rounded-full" />
+                <a href={`/@${channelId}`}>
+                    {/* <img src={channel.profileUrl} className="w-12 h-12 rounded-full" /> */}
                 </a>
                 <div className="flex flex-col">
                     <a href={`/watch?v=${id}`} className="font-bold">
-                        {title}
+                        { title }
                     </a>
-                    <a href={`/@${channel.id}`} className="text-secondary-text text-sm">
-                        {channel.name}
+                    <a href={`/@${channelId}`} className="text-secondary-text text-sm">
+                        { channelTitle }
                     </a>
                     <div className="text-secondary-text text-sm">
-                        { VIEWS_FORMAT.format(views) } Views • {formatTimeAgo(postedAt)}
+                        { VIEWS_FORMAT.format(viewCount) } Views • {formatTimeAgo(publishedAt)}
                     </div>
                 </div>
             </div>
