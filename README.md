@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# Youtube Clone with React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tools used:
 
-Currently, two official plugins are available:
+- Vite 5.3.5
+- React 18.3.1
+- Tailwindcss 3.4.7
+- TypeScript
+- Git & Github
+- Node 20.10.0
+- NPM 10.8.1
+- Google Youtube Api V3 (You need to aqcuire api key for this: https://console.cloud.google.com/apis)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup & Configuration 
 
-## Expanding the ESLint configuration
+Get repo from either ```git``` or ```https``` protocol
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+$ clone git@github.com:mokgosi/vite-react-video-preview.git
+$ nmp install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## API KEY
+
+Create .env file in your project root and place this your api key in it
+
+```
+$ touch .env
+```
+
+Edit this file with your api key
+
+API_KEY=YOUR_API_KEY
+
+## Run Server
+
+```
+$ npm run dev
+```
+
+You should see something like this on your terminal if successful
+
+  VITE v5.3.5  ready in 406 ms
+
+  ➜  Local:   http://localhost:5173/
+
+  ➜  Network: use --host to expose
+
+  ➜  press h + enter to show help
+
+
+  Browse to http://localhost:5173/ to see app.
+
+
+Note: 
+The top bar is outside this project scope - so no functionality provided there.  

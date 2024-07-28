@@ -29,7 +29,7 @@ export function PageHeader() {
             </Button>
             )}
             
-            <div className="flex flex-grow max-w-[600px]">
+            {/* <div className="flex flex-grow max-w-[600px]">
                 <input 
                     type="search" 
                     placeholder="Search" 
@@ -41,7 +41,7 @@ export function PageHeader() {
                 <Button className="py-2 px-4 rounded-r-full border-secondary-border border border-l-0 flex-shrink-0">
                     <Search />
                 </Button>
-            </div>
+            </div> */}
             <Button type="button" size="icon" className="flex-shrink-0">
                 <Mic />
             </Button>

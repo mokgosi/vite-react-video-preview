@@ -3,12 +3,14 @@ import { PageHeader } from "./layouts/PageHeader"
 import { VideoGridItem } from "./components/VideoGridItem"
 import { videos } from "./data/home"
 import { useEffect, useState } from "react"
+import cors from "./cors"
 
 export default function App() {
 
   const [category, setCategory] = useState(0)
 
   const [data, setData] = useState([])
+
 
   const fetchData = async () => {
     const api_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=0&key=${process.env.API_KEY}`
